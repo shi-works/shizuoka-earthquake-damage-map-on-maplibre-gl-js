@@ -256,38 +256,25 @@
 
             // ============================== レイヤの表示・非表示切り替え制御 ==============================
 
-            // レイヤーの表示・非表示切り替え制御
-            document.getElementById('shindo-01').addEventListener('change', function (e) {
-                if (e.target.checked) {
-                    // チェックボックスがON - レイヤーと凡例を表示
-                    map.setLayoutProperty('shindo-01', 'visibility', 'visible');
-                } else {
-                    // チェックボックスがOFF - レイヤーと凡例を非表示
-                    map.setLayoutProperty('shindo-01', 'visibility', 'none');
-                }
+            // ラジオボタン要素を取得
+            var radios = document.querySelectorAll('input[type=radio][name="layer"]');
+
+            // 各ラジオボタンにイベントリスナーを設定
+            radios.forEach((radio) => {
+                radio.addEventListener('change', function () {
+                    switchLayer(this.value);
+                });
             });
 
-            // レイヤーの表示・非表示切り替え制御
-            document.getElementById('shindo-02').addEventListener('change', function (e) {
-                if (e.target.checked) {
-                    // チェックボックスがON - レイヤーと凡例を表示
-                    map.setLayoutProperty('shindo-02', 'visibility', 'visible');
-                } else {
-                    // チェックボックスがOFF - レイヤーと凡例を非表示
-                    map.setLayoutProperty('shindo-02', 'visibility', 'none');
-                }
-            });
+            // レイヤーを切り替える関数
+            function switchLayer(layerId) {
+                var layerIds = ['shindo-01', 'shindo-02', 'shindo-03'];
 
-            // レイヤーの表示・非表示切り替え制御
-            document.getElementById('shindo-03').addEventListener('change', function (e) {
-                if (e.target.checked) {
-                    // チェックボックスがON - レイヤーと凡例を表示
-                    map.setLayoutProperty('shindo-03', 'visibility', 'visible');
-                } else {
-                    // チェックボックスがOFF - レイヤーと凡例を非表示
-                    map.setLayoutProperty('shindo-03', 'visibility', 'none');
-                }
-            });
+                layerIds.forEach(function (id) {
+                    var visibility = id === layerId ? 'visible' : 'none';
+                    map.setLayoutProperty(id, 'visibility', visibility);
+                });
+            }
         </script>
     </body>
 </html>
