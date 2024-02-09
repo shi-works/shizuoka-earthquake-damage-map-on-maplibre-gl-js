@@ -1,0 +1,293 @@
+<html>
+    <head>
+        <title>静岡県地震被害想定マップ（震度分布図）</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+        <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+        <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
+        <style>
+            body {
+                margin: 0;
+            }
+
+            #map {
+                height: 100%;
+                width: 100%;
+            }
+
+            .legend-sindo {
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 3px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                padding: 10px;
+                position: absolute;
+                bottom: 50px;
+                right: 10px;
+                z-index: 1;
+                line-height: 16px;
+                height: 160px;
+            }
+
+            .legend-sindo h4 {
+                margin: 0 0 10px;
+            }
+
+            .legend-sindo div span {
+                border-radius: 50%;
+                display: inline-block;
+                height: 15px;
+                margin-right: 10px;
+                width: 15px;
+                color: black;
+            }
+
+            .legend-ekijoka {
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 3px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+                font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                padding: 10px;
+                position: absolute;
+                bottom: 50px;
+                right: 10px;
+                z-index: 1;
+                line-height: 16px;
+                height: 100px;
+            }
+
+            .legend-ekijoka h4 {
+                margin: 0 0 10px;
+            }
+
+            .legend-ekijoka div span {
+                border-radius: 50%;
+                display: inline-block;
+                height: 15px;
+                margin-right: 10px;
+                width: 15px;
+                color: black;
+            }
+
+            .squre {
+                width: 15px;
+                height: 15px;
+            }
+
+            #info01 {
+                padding: 6px 8px;
+                font: 12px/14px Arial, Helvetica, sans-serif;
+                color: navy;
+                background: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                width: fit-content;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 1;
+            }
+
+            .yubi {
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            .checkbox-button-container {
+                display: flex;
+                justify-content: start;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+                margin-right: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="map"></div>
+        <div id="info01">
+            <details>
+                <summary class="yubi">
+                    <strong>静岡県第４次地震被害想定</strong>
+                </summary>
+                <fieldset>
+                    <!--8パターン-->
+                    <div class="checkbox-button-container">
+                        <div class="column">
+                            <div>
+                                <input type="checkbox" id="shindo-01" name="layer" value="shindo-01" checked />
+                                <label for="shindo-01">震度分布（南海トラフ巨大地震（基本ケース））</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="shindo-02" name="layer" value="shindo-02" />
+                                <label for="shindo-02">震度分布（南海トラフ巨大地震（東側ケース））</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="shindo-03" name="layer" value="shindo-03" />
+                                <label for="shindo-03">震度分布（南海トラフ巨大地震（陸側ケース））</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </details>
+        </div>
+        <div id="legend-sindo" style="display: block" class="legend-sindo">
+            <h4>震度</h4>
+            <div class="squre" style="background-color: #a52266; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度7</span><br />
+            <div class="squre" style="background-color: #961d26; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度6強</span><br />
+            <div class="squre" style="background-color: #eb4125; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度6弱</span><br />
+            <div class="squre" style="background-color: #f19d39; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度5強</span><br />
+            <div class="squre" style="background-color: #fbe64d; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度5弱</span><br />
+            <div class="squre" style="background-color: #f6e69f; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度4</span><br />
+            <div class="squre" style="background-color: #1646f5; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">震度3以下</span><br /><br />
+        </div>
+        <script type="module">
+            // Terrain-RGB形式への変換モジュール
+            import { makeNumPngProtocol } from './numPngProtocol.js';
+            maplibregl.addProtocol('numpng', makeNumPngProtocol());
+
+            // addProtocolの設定
+            let protocol = new pmtiles.Protocol();
+            maplibregl.addProtocol('pmtiles', protocol.tile);
+
+            // マップの初期化
+            const map = new maplibregl.Map({
+                container: 'map',
+                style: 'std.json',
+                center: [138.3677, 35.1229],
+                zoom: 9.09,
+                minZoom: 1,
+                maxZoom: 18,
+                pitch: 0,
+                maxPitch: 85,
+                bearing: 0,
+                hash: true,
+                attributionControl: false,
+            });
+
+            // ズーム・回転
+            map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+            // フルスクリーンモードのオンオフ
+            map.addControl(new maplibregl.FullscreenControl(), 'top-right');
+
+            // 現在位置表示
+            map.addControl(
+                new maplibregl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: false,
+                    },
+                    fitBoundsOptions: { maxZoom: 18 },
+                    trackUserLocation: true,
+                    showUserLocation: true,
+                }),
+                'top-right'
+            );
+
+            // スケール表示
+            map.addControl(
+                new maplibregl.ScaleControl({
+                    maxWidth: 200,
+                    unit: 'metric',
+                })
+            );
+
+            // Attributionを折りたたみ表示
+            map.addControl(
+                new maplibregl.AttributionControl({
+                    compact: true,
+                    customAttribution: '（<a href="https://twitter.com/shi__works" target="_blank">Twitter</a> | <a href="" target="_blank">Github</a>）',
+                })
+            );
+
+            // 3D地形コントロール
+            map.addControl(
+                new maplibregl.TerrainControl({
+                    source: 'aist-dem',
+                    exaggeration: 1, // 標高を強調する倍率
+                }),
+                'top-right'
+            );
+
+            map.on('load', function () {
+                // 産総研 シームレス標高タイルソース
+                map.addSource('aist-dem', {
+                    type: 'raster-dem',
+                    tiles: ['numpng://tiles.gsj.jp/tiles/elev/mixed/{z}/{y}/{x}.png'],
+                    attribution: '<a href="https://tiles.gsj.jp/tiles/elev/tiles.html" target="_blank">産業技術総合研究所 シームレス標高タイル(統合DEM)</a>',
+                    tileSize: 256,
+                });
+
+                // PLATEAU建物（PMTiles）ソース
+                map.addSource('plateau-pmtiles', {
+                    type: 'vector',
+                    url: 'pmtiles://https://xs489works.xsrv.jp/pmtiles-data/plateau/PLATEAU_2022_LOD1.pmtiles',
+                    minzoom: 16,
+                    maxzoom: 16,
+                    attribution: '<a href="https://www.geospatial.jp/ckan/dataset/plateau">3D都市モデルPLATEAU建物データ（国土交通省）</a>',
+                });
+
+                // PLATEAU建物（PMTiles）レイヤ
+                map.addLayer({
+                    id: 'plateau-pmtiles',
+                    source: 'plateau-pmtiles',
+                    'source-layer': 'PLATEAU',
+                    minzoom: 14,
+                    maxzoom: 23,
+                    type: 'fill-extrusion',
+                    paint: {
+                        'fill-extrusion-color': '#FFFFFF',
+                        'fill-extrusion-opacity': 0.8,
+                        'fill-extrusion-height': ['get', 'measuredHeight'],
+                    },
+                });
+            });
+
+            // ============================== レイヤの表示・非表示切り替え制御 ==============================
+
+            // レイヤーの表示・非表示切り替え制御
+            document.getElementById('shindo-01').addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    // チェックボックスがON - レイヤーと凡例を表示
+                    map.setLayoutProperty('shindo-01', 'visibility', 'visible');
+                } else {
+                    // チェックボックスがOFF - レイヤーと凡例を非表示
+                    map.setLayoutProperty('shindo-01', 'visibility', 'none');
+                }
+            });
+
+            // レイヤーの表示・非表示切り替え制御
+            document.getElementById('shindo-02').addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    // チェックボックスがON - レイヤーと凡例を表示
+                    map.setLayoutProperty('shindo-02', 'visibility', 'visible');
+                } else {
+                    // チェックボックスがOFF - レイヤーと凡例を非表示
+                    map.setLayoutProperty('shindo-02', 'visibility', 'none');
+                }
+            });
+
+            // レイヤーの表示・非表示切り替え制御
+            document.getElementById('shindo-03').addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    // チェックボックスがON - レイヤーと凡例を表示
+                    map.setLayoutProperty('shindo-03', 'visibility', 'visible');
+                } else {
+                    // チェックボックスがOFF - レイヤーと凡例を非表示
+                    map.setLayoutProperty('shindo-03', 'visibility', 'none');
+                }
+            });
+        </script>
+    </body>
+</html>
