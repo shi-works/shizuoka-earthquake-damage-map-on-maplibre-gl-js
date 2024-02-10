@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>静岡県地震被害想定マップ（震度分布図）</title>
+        <title>静岡県地震被害想定マップ（震度分布図及び液状化可能性分布図）</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
@@ -16,7 +16,7 @@
                 width: 100%;
             }
 
-            .legend-sindo {
+            .legend-shindo {
                 background-color: rgba(255, 255, 255, 0.8);
                 border-radius: 3px;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -30,11 +30,11 @@
                 height: 160px;
             }
 
-            .legend-sindo h4 {
+            .legend-shindo h4 {
                 margin: 0 0 10px;
             }
 
-            .legend-sindo div span {
+            .legend-shindo div span {
                 border-radius: 50%;
                 display: inline-block;
                 height: 15px;
@@ -120,22 +120,34 @@
                         <div class="column">
                             <div>
                                 <input type="radio" id="shindo-01" name="layer" value="shindo-01" checked />
-                                <label for="shindo-01">震度分布（南海トラフ巨大地震（基本ケース））</label>
+                                <label for="shindo-01">震度（南海トラフ巨大地震（基本ケース））</label>
                             </div>
                             <div>
                                 <input type="radio" id="shindo-02" name="layer" value="shindo-02" />
-                                <label for="shindo-02">震度分布（南海トラフ巨大地震（東側ケース））</label>
+                                <label for="shindo-02">震度（南海トラフ巨大地震（東側ケース））</label>
                             </div>
                             <div>
                                 <input type="radio" id="shindo-03" name="layer" value="shindo-03" />
-                                <label for="shindo-03">震度分布（南海トラフ巨大地震（陸側ケース））</label>
+                                <label for="shindo-03">震度（南海トラフ巨大地震（陸側ケース））</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ekijoka-01" name="layer" value="ekijoka-01" />
+                                <label for="ekijoka-01">液状化（南海トラフ巨大地震（基本ケース））</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ekijoka-02" name="layer" value="ekijoka-02" />
+                                <label for="ekijoka-02">液状化（南海トラフ巨大地震（東側ケース））</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="ekijoka-03" name="layer" value="ekijoka-03" />
+                                <label for="ekijoka-03">液状化（南海トラフ巨大地震（陸側ケース））</label>
                             </div>
                         </div>
                     </div>
                 </fieldset>
             </details>
         </div>
-        <div id="legend-sindo" style="display: block" class="legend-sindo">
+        <div id="legend-shindo" style="display: block" class="legend-shindo">
             <h4>震度</h4>
             <div class="squre" style="background-color: #a52266; display: inline-block"></div>
             <span style="display: inline-block; margin-left: 5px">震度7</span><br />
@@ -151,6 +163,17 @@
             <span style="display: inline-block; margin-left: 5px">震度4</span><br />
             <div class="squre" style="background-color: #1646f5; display: inline-block"></div>
             <span style="display: inline-block; margin-left: 5px">震度3以下</span><br /><br />
+        </div>
+        <div id="legend-ekijoka" style="display: none" class="legend-ekijoka">
+            <h4>液状化可能性</h4>
+            <div class="squre" style="background-color: #a766ba; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">大</span><br />
+            <div class="squre" style="background-color: #ff7e66; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">中</span><br />
+            <div class="squre" style="background-color: #ffc266; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">小</span><br />
+            <div class="squre" style="background-color: #c8ffc8; display: inline-block"></div>
+            <span style="display: inline-block; margin-left: 5px">なし</span><br />
         </div>
         <script type="module">
             // Terrain-RGB形式への変換モジュール
@@ -256,6 +279,7 @@
 
             // ============================== レイヤの表示・非表示切り替え制御 ==============================
 
+            /*
             // ラジオボタン要素を取得
             var radios = document.querySelectorAll('input[type=radio][name="layer"]');
 
@@ -275,6 +299,56 @@
                     map.setLayoutProperty(id, 'visibility', visibility);
                 });
             }
+            */
+
+            // ラジオボタンの状態に応じてレイヤーの表示・非表示を切り替える関数
+            function toggleLayer(layerType, layerId) {
+                // 震度と液状化のレイヤーを切り替える
+                for (let i = 1; i <= 3; i++) {
+                    let layerIndex = i < 10 ? `0${i}` : `${i}`;
+                    let sindoLayerName = `shindo-${layerIndex}`;
+                    let ekijokaLayerName = `ekijoka-${layerIndex}`;
+
+                    if (map.getLayer(sindoLayerName) && map.getLayer(ekijokaLayerName)) {
+                        if (layerType === 'shindo') {
+                            map.setLayoutProperty(sindoLayerName, 'visibility', layerId === i ? 'visible' : 'none');
+                            map.setLayoutProperty(ekijokaLayerName, 'visibility', 'none');
+                        } else if (layerType === 'ekijoka') {
+                            map.setLayoutProperty(ekijokaLayerName, 'visibility', layerId === i ? 'visible' : 'none');
+                            map.setLayoutProperty(sindoLayerName, 'visibility', 'none');
+                        }
+                    }
+                }
+            }
+
+            // ラジオボタンの状態に応じて表示・非表示を切り替える
+            document.addEventListener('DOMContentLoaded', (event) => {
+                // 各ラジオボタンのイベントリスナーを設定
+                for (let i = 1; i <= 3; i++) {
+                    let sindoButton = document.getElementById(`shindo-${i.toString().padStart(2, '0')}`);
+                    let ekijokaButton = document.getElementById(`ekijoka-${i.toString().padStart(2, '0')}`);
+
+                    if (sindoButton) {
+                        sindoButton.addEventListener('change', function () {
+                            if (this.checked) {
+                                toggleLayer('shindo', i);
+                                document.getElementById('legend-shindo').style.display = 'block';
+                                document.getElementById('legend-ekijoka').style.display = 'none';
+                            }
+                        });
+                    }
+
+                    if (ekijokaButton) {
+                        ekijokaButton.addEventListener('change', function () {
+                            if (this.checked) {
+                                toggleLayer('ekijoka', i);
+                                document.getElementById('legend-shindo').style.display = 'none';
+                                document.getElementById('legend-ekijoka').style.display = 'block';
+                            }
+                        });
+                    }
+                }
+            });
         </script>
     </body>
 </html>

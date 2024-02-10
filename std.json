@@ -98,6 +98,48 @@
             }
         },
         {
+            "id": "ekijoka-01",
+            "type": "fill",
+            "source": "01",
+            "source-layer": "shizuokakenhigaisoutei181102fgb",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
+                "fill-outline-color": "rgba(0, 0, 0, 0)",
+                "fill-opacity": 1
+            }
+        },
+        {
+            "id": "ekijoka-02",
+            "type": "fill",
+            "source": "02",
+            "source-layer": "shizuokakenhigaisoutei181202fgb",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
+                "fill-outline-color": "rgba(0, 0, 0, 0)",
+                "fill-opacity": 1
+            }
+        },
+        {
+            "id": "ekijoka-03",
+            "type": "fill",
+            "source": "03",
+            "source-layer": "shizuokakenhigaisoutei181302fgb",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
+                "fill-outline-color": "rgba(0, 0, 0, 0)",
+                "fill-opacity": 1
+            }
+        },
+        {
             "id": "hillshade",
             "type": "raster",
             "source": "h",
