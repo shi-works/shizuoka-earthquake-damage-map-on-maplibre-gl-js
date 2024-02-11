@@ -2,6 +2,8 @@
 ## Public Website
 https://shi-works.github.io/shizuoka-earthquake-damage-map-on-maplibre-gl-js/
 
+![image](https://github.com/shi-works/shizuoka-earthquake-damage-map-on-maplibre-gl-js/assets/71203808/8d46d1e7-784d-451a-ba24-cb1cd3769dd8)
+
 ## Data Source
 ### 静岡県
 - 静岡県第４次地震被害想定地震動・液状化（南海トラフ巨大地震（基本ケース））
