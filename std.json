@@ -105,6 +105,7 @@
             "layout": {
                 "visibility": "none"
             },
+            "filter": [">=", ["to-number", ["get", "PL"]], 0],
             "paint": {
                 "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
                 "fill-outline-color": "rgba(0, 0, 0, 0)",
@@ -119,6 +120,7 @@
             "layout": {
                 "visibility": "none"
             },
+            "filter": [">=", ["to-number", ["get", "PL"]], 0],
             "paint": {
                 "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
                 "fill-outline-color": "rgba(0, 0, 0, 0)",
@@ -133,6 +135,7 @@
             "layout": {
                 "visibility": "none"
             },
+            "filter": [">=", ["to-number", ["get", "PL"]], 0],
             "paint": {
                 "fill-color": ["case", ["all", ["==", ["to-number", ["get", "PL"]], 0]], "#C8FFC8", ["all", [">", ["to-number", ["get", "PL"]], 0], ["<=", ["to-number", ["get", "PL"]], 5]], "#ffc266", ["all", [">", ["to-number", ["get", "PL"]], 5], ["<=", ["to-number", ["get", "PL"]], 15]], "#ff7e66", ["all", [">", ["to-number", ["get", "PL"]], 15]], "#a766ba", "rgba(0,0,0,0)"],
                 "fill-outline-color": "rgba(0, 0, 0, 0)",
