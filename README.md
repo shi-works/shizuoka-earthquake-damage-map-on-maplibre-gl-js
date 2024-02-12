@@ -22,7 +22,7 @@ https://shi-works.github.io/shizuoka-earthquake-damage-map-on-maplibre-gl-js/
     - ライセンス：CC BY
 
 ### 人口分布データ
-- 令和2年簡易100mメッシュ人口データ（全国）（PMTiles形式）
+- 令和2年簡易100mメッシュ人口データ（静岡県）（PMTiles形式）
     - 出典：https://github.com/shi-works/noto-hanto-earthquake-2024-100m-mesh-pop-data
         - 原初データ出典：[地域分析に有用なデータの提供, 地域・交通データ研究所代表（東京大学空間情報科学研究センター客員研究員）西澤明](https://gtfs-gis.jp/teikyo/index.html)
     - 概要：地域・交通データ研究所にて公開されている令和2年簡易100mメッシュ人口データをPMTiles形式に変換したデータです。
