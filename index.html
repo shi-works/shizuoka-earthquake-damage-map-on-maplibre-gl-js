@@ -425,7 +425,7 @@
                 // 令和2年簡易100mメッシュ人口（全国）ソース
                 map.addSource('100m_mesh_pop2020', {
                     type: 'vector',
-                    url: 'pmtiles://https://xs489works.xsrv.jp/pmtiles-data/100m_mesh_pop2020/100m_mesh_pop2020_v2.pmtiles',
+                    url: 'pmtiles://https://xs489works.xsrv.jp/pmtiles-data/100m_mesh_pop2020/100m_mesh_pop2020_shizuoka.pmtiles',
                     attribution: '<a href="https://gtfs-gis.jp/teikyo/index.html" target="_blank">地域・交通データ研究所 簡易100mメッシュ人口データ(2020年国勢調査ベース)</a>',
                 });
 
@@ -434,8 +434,8 @@
                     id: '100m_mesh_pop2020_fill',
                     type: 'fill-extrusion',
                     source: '100m_mesh_pop2020',
-                    'source-layer': '100m_mesh_pop2020fgb',
-                    minzoom: 9,
+                    'source-layer': '100m_mesh_pop2020_shizuokafgb',
+                    minzoom: 8,
                     maxzoom: 23,
                     layout: {
                         visibility: 'none',
