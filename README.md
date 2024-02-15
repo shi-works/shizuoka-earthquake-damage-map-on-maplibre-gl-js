@@ -2,7 +2,7 @@
 ## Public Website
 https://shi-works.github.io/shizuoka-earthquake-damage-map-on-maplibre-gl-js/
 
-![image](https://github.com/shi-works/shizuoka-earthquake-damage-map-on-maplibre-gl-js/assets/71203808/cc7e1e8b-18cf-4acb-be10-711fcf299422)
+![image](https://github.com/shi-works/shizuoka-earthquake-damage-map-on-maplibre-gl-js/assets/71203808/01950775-6d16-4a4b-890a-087810efb418)
 
 ## Data Source
 ### 静岡県
