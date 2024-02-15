@@ -21,6 +21,12 @@ https://shi-works.github.io/shizuoka-earthquake-damage-map-on-maplibre-gl-js/
     - 概要：静岡県第４次地震被害想定の地震動・液状化（南海トラフ巨大地震（陸側ケース））データです。
     - ライセンス：CC BY
 
+### 国土地理院
+- 地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）) 
+    - 出典：https://maps.gsi.go.jp/development/ichiran.html#landslide
+    - 概要：地すべり地形分布図は、地すべり変動によって形成された地形的痕跡である「地すべり地形」の外形と基本構造（滑落崖・移動体）を空中写真判読によりマッピングし、1:50,000地形図にその分布を示した図面です。
+    - ライセンス：利用にあたっては、[詳細](https://www.j-shis.bosai.go.jp/landslidemap)及び[利用規約](https://www.j-shis.bosai.go.jp/agreement-landslidemap)を参照。
+
 ### 人口分布データ
 - 令和2年簡易100mメッシュ人口データ（静岡県）（PMTiles形式）
     - 出典：https://github.com/shi-works/noto-hanto-earthquake-2024-100m-mesh-pop-data
