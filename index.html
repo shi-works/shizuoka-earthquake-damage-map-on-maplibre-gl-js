@@ -17,16 +17,16 @@
             }
 
             .map-overlay {
-                font: bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                font: bold 12px/14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
                 position: absolute;
-                width: 180px;
+                width: 190px;
                 bottom: 20px;
                 left: 0;
                 padding: 10px;
             }
 
             .map-overlay .map-overlay-inner {
-                background-color: rgba(255, 255, 255, 0.8);
+                background-color: #fff;
                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
                 border-radius: 3px;
                 padding: 10px;
@@ -165,7 +165,7 @@
                 font: 12px/14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
                 padding: 10px;
                 position: absolute;
-                bottom: 50px;
+                bottom: 100px;
                 left: 5px;
                 z-index: 1;
                 line-height: 20px;
@@ -230,7 +230,6 @@
                     <strong>静岡県第４次地震被害想定</strong>
                 </summary>
                 <fieldset>
-                    <!--8パターン-->
                     <div class="adio-button-container">
                         <div class="column">
                             <div>
@@ -257,9 +256,18 @@
                                 <input type="radio" id="ekijoka-03" name="layer" value="ekijoka-03" />
                                 <label for="ekijoka-03">液状化（南海トラフ巨大地震（陸側ケース））</label>
                             </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <summary class="yubi">
+                    <strong>各種レイヤー</strong>
+                </summary>
+                <fieldset>
+                    <div class="adio-button-container">
+                        <div class="column">
                             <div>
                                 <input type="checkbox" id="pop-map" value="pop-map" />
-                                <label for="pop-map">令和2年100mﾒｯｼｭ人口</label>
+                                <label for="pop-map">令和2年簡易100mﾒｯｼｭ人口</label>
                             </div>
                         </div>
                     </div>
@@ -308,6 +316,12 @@
             <span style="display: inline-block; margin-left: 5px">60～80人未満</span><br />
             <div class="square" style="background-color: #cb00cb; display: inline-block"></div>
             <span style="display: inline-block; margin-left: 5px">80人以上</span><br />
+        </div>
+        <div class="map-overlay top">
+            <div class="map-overlay-inner">
+                <label>震度・液状化 不透明度: <span id="eq-slider-opacity-value">100%</span></label>
+                <input id="eq-slider-opacity" type="range" min="0" max="100" step="1" value="100" />
+            </div>
         </div>
         <script type="module">
             // Terrain-RGB形式への変換モジュール
@@ -445,6 +459,20 @@
                         'fill-extrusion-height': ['*', ['to-number', ['get', 'PopT']], 2],
                         'fill-extrusion-opacity': 0.5,
                     },
+                });
+
+                // スライダーCS立体図の不透明度を制御
+                const eq_sliderOpactiy = document.getElementById('eq-slider-opacity');
+                const eq_sliderOpactiyValue = document.getElementById('eq-slider-opacity-value');
+
+                eq_sliderOpactiy.addEventListener('input', (e) => {
+                    map.setPaintProperty('shindo-01', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    map.setPaintProperty('shindo-02', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    map.setPaintProperty('shindo-03', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    map.setPaintProperty('ekijoka-01', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    map.setPaintProperty('ekijoka-02', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    map.setPaintProperty('ekijoka-03', 'fill-opacity', parseInt(e.target.value, 10) / 100);
+                    eq_sliderOpactiyValue.textContent = e.target.value + '%';
                 });
             });
 

@@ -36,6 +36,12 @@
             "maxzoom": 10,
             "tiles": ["pmtiles://https://xs489works.xsrv.jp/pmtiles-data/pref-shizuoka/shizuokakenhigaisoutei1813-02.pmtiles/{z}/{x}/{y}"],
             "attribution": "<a href='https://www.pref.shizuoka.jp/bosaikinkyu/sonae/earthquake/1040810/1029867.html' target='_blank'>静岡県第4次地震被害想定調査</a>"
+        },
+        "shizuoka-cs": {
+            "type": "raster",
+            "tiles": ["https://shiworks.xsrv.jp/raster-tiles/pref-shizuoka/shizuoka-cs-tiles/{z}/{x}/{y}.png"],
+            "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap' target='_blank'>静岡県CS立体図</a>",
+            "tileSize": 256
         }
     },
     "layers": [
@@ -53,6 +59,17 @@
             "source-layer": "AdmArea",
             "paint": {
                 "fill-color": "rgba(255,255,255,1)"
+            }
+        },
+        {
+            "id": "shizuoka-cs",
+            "type": "raster",
+            "source": "shizuoka-cs",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "raster-opacity": 1
             }
         },
         {
