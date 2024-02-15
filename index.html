@@ -266,6 +266,11 @@
                     <div class="adio-button-container">
                         <div class="column">
                             <div>
+                                <input type="checkbox" id="landslide" value="landslide" />
+                                <label for="landslide">地すべり地形分布図</label>
+                                <label id="open-legend-landslide" style="text-decoration: underline; cursor: pointer">凡例</label>
+                            </div>
+                            <div>
                                 <input type="checkbox" id="pop-map" value="pop-map" />
                                 <label for="pop-map">令和2年簡易100mﾒｯｼｭ人口</label>
                             </div>
@@ -563,6 +568,17 @@
                 }
             });
 
+            // 地すべり地形分布図の表示・非表示切り替え制御
+            document.getElementById('landslide').addEventListener('change', function (e) {
+                if (e.target.checked) {
+                    // チェックボックスがON - レイヤーと凡例を表示
+                    map.setLayoutProperty('landslide', 'visibility', 'visible');
+                } else {
+                    // チェックボックスがOFF - レイヤーと凡例を非表示
+                    map.setLayoutProperty('landslide', 'visibility', 'none');
+                }
+            });
+
             // クリック時のポップアップ表示
             map.on('click', '100m_mesh_pop2020_fill', (e) => {
                 var coordinates = e.features[0].geometry.coordinates[0]; // ポリゴンの頂点の配列
@@ -660,6 +676,21 @@
                     )
                     .addTo(map);
             });
+
+            // 地すべり地形分布図凡例
+
+            // イベントリスナーを追加
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('open-legend-landslide').addEventListener('click', OpenLegendRoad);
+            });
+
+            function OpenLegendRoad() {
+                // 凡例の内容を含むウェブページのURL
+                var legendUrl = './legend-landslide.png';
+
+                // 新しいウィンドウを開く
+                window.open(legendUrl, 'Legend', 'width=1800,height=1200');
+            }
         </script>
     </body>
 </html>

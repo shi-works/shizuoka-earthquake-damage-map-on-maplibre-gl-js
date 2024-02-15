@@ -42,6 +42,12 @@
             "tiles": ["https://shiworks.xsrv.jp/raster-tiles/pref-shizuoka/shizuoka-cs-tiles/{z}/{x}/{y}.png"],
             "attribution": "<a href='https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap' target='_blank'>静岡県CS立体図</a>",
             "tileSize": 256
+        },
+        "landslide": {
+            "type": "raster",
+            "tiles": ["https://jmapweb3v.bosai.go.jp/map/xyz/landslide/{z}/{x}/{y}.png"],
+            "attribution": "<a href='https://maps.gsi.go.jp/development/ichiran.html#landslide' target='_blank'>地理院タイル(地すべり地形分布図日本全国版（防災科学技術研究所）)</a>",
+            "tileSize": 256
         }
     },
     "layers": [
@@ -165,6 +171,17 @@
             "source": "h",
             "paint": {
                 "raster-opacity": 0.3
+            }
+        },
+        {
+            "id": "landslide",
+            "type": "raster",
+            "source": "landslide",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "raster-opacity": 1
             }
         },
         {
