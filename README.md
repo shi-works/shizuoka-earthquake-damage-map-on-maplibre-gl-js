@@ -38,3 +38,12 @@ https://shi-works.github.io/shizuoka-earthquake-damage-map-on-maplibre-gl-js/
 - 産業技術総合研究所 シームレス標高タイル（統合DEM）
     - 出典：https://tiles.gsj.jp/tiles/elev/tiles.html
     - ライセンス：「[産総研地質調査総合センターウェブサイト利用規約](https://www.gsj.jp/license/license.html)」に従い、商用を含む自由な二次利用が可能です。この規約はCC BY 4.0と互換です。
+- 静岡県 CS立体図
+    - 出典（タイルURL）：`https://shiworks.xsrv.jp/raster-tiles/pref-shizuoka/shizuoka-cs-tiles/{z}/{x}/{y}.png`
+      - 原初データ出典：[VIRTUAL SHIZUOKA 静岡県CS立体図](https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap)
+      - 概要：令和元年度から令和3年度にかけて、静岡県が実施した航空レーザ測量成果を基に、地上画素寸法50センチの解像度で作成。
+      - ライセンス：CC BY 4.0
+    - 概要：G空間情報センターにて公開されている、[VIRTUAL SHIZUOKA 静岡県CS立体図](https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap)をWebメルカトル（EPSG:3857）に再投影した上で[gdal2tiles](https://gdal.org/programs/gdal2tiles.html)を使用してラスタータイル化したデータです。
+    - ズームレベル：4～18
+    - タイルサイズ：256x256ピクセル
+    - ライセンス：CC BY 4.0
